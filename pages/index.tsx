@@ -21,8 +21,9 @@ export default function Home() {
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
         <h1 className="sm:text-6xl text-4xl max-w-3xl font-bold text-white-900 border-2 p-10 rounded-2xl first:">
           Generate your Bio with{" "}
-          <span className="text-purple-500 drop-shadow-sm">GPT3.0</span>
+          <p className="text-purple-500 drop-shadow-sm mt-5">GPT3.0</p>
         </h1>
+
         <InputPanel />
         <DropDown />
       </main>

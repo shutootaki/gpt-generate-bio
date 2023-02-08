@@ -7,7 +7,7 @@ export const GitHub = () => {
       href="https://github.com/shutootaki/gpt-generate-bio"
     >
       <p>View on GitHub</p>
-      <FaGithubAlt />
+      <FaGithubAlt size={24} />
     </a>
   );
 };

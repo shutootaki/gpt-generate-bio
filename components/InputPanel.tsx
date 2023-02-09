@@ -15,6 +15,7 @@ export const InputPanel = () => {
           name="input-area"
           id="input-area"
           className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-3 p-2"
+          rows={4}
           placeholder={
             "e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com."
           }

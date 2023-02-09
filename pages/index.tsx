@@ -1,9 +1,15 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
+import { motion } from "framer-motion";
+
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { InputPanel } from "@/components/InputPanel";
 import { DropDown } from "@/components/DropDown";
+import { GenerateButton } from "@/components/GenerateButton";
+import { Toaster, toast } from "react-hot-toast";
+import { AnimatePresence } from "framer-motion";
+import { OutputPanel } from "@/components/OutputPanel";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,16 +22,48 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Header />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
-        <h1 className="sm:text-6xl text-4xl max-w-3xl font-bold text-white-900 border-2 p-10 rounded-2xl first:">
+        <h1 className="sm:text-6xl text-4xl max-w-3xl font-bold text-slate-100 border-2 p-10 rounded-2xl first:">
           Generate your Bio with{" "}
-          <p className="text-purple-500 drop-shadow-sm mt-5">GPT3.0</p>
+          <p className="text-purple-600 drop-shadow-sm mt-5">GPT-3</p>
         </h1>
-
         <InputPanel />
         <DropDown />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{ duration: 2000 }}
+        />
+        <GenerateButton toast={"tmp"} />
+        <OutputPanel>
+          <AnimatePresence>
+            <motion.div className="space-y-10 my-10">
+              {"tmp" && (
+                <>
+                  <div>
+                    <h2 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
+                      Your Bio
+                    </h2>
+                  </div>
+                  <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
+                    <div
+                      className="bg-slate-100	 text-stone-900 rounded-xl shadow-md p-4 hover:bg-gray-400 transition cursor-copy border"
+                      onClick={() => {
+                        navigator.clipboard.writeText("tmp");
+                        toast("Bio copied to clipboard", {
+                          icon: "✂️",
+                        });
+                      }}
+                    >
+                      <p>tmp</p>
+                    </div>
+                  </div>
+                </>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </OutputPanel>
       </main>
       <Footer />
     </div>

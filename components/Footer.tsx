@@ -24,7 +24,7 @@ export const Footer = () => {
           <BsGithub
             role="img"
             aria-hidden="true"
-            className="fill-slate-500 hover:fill-white mr-3 "
+            className="fill-slate-500 hover:fill-slate-100 mr-3 "
             size={30}
           />
         </Link>

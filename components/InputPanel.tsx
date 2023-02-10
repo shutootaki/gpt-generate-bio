@@ -1,6 +1,11 @@
+import { Dispatch, SetStateAction } from "react";
 import { BsPencil } from "react-icons/bs";
 
-export const InputPanel = () => {
+type Props = {
+  setBio: Dispatch<SetStateAction<string>>;
+};
+
+export const InputPanel = ({ setBio }: Props) => {
   return (
     <>
       <div className="max-w-xl w-full">
@@ -19,6 +24,7 @@ export const InputPanel = () => {
           placeholder={
             "e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com."
           }
+          onChange={(e) => setBio(e.target.value)}
         ></textarea>
       </div>
     </>

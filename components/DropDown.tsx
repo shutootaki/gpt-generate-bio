@@ -1,10 +1,13 @@
 import { Menu, Transition } from "@headlessui/react";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { BsListUl } from "react-icons/bs";
-import { Fragment } from "react";
+import { Dispatch, Fragment, SetStateAction } from "react";
 import { FiCheck } from "react-icons/fi";
 
 export type VibeType = "Professional" | "Casual" | "Funny";
+type Props = {
+  setVibe: Dispatch<SetStateAction<string>>;
+};
 
 let vibes: VibeType[] = ["Professional", "Casual", "Funny"];
 
@@ -12,7 +15,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const DropDown = () => {
+export const DropDown = ({ setVibe }: Props) => {
   return (
     <>
       <div className="max-w-xl w-full ">
@@ -54,7 +57,7 @@ export const DropDown = () => {
                   <Menu.Item key={vibeItem}>
                     {({ active }) => (
                       <button
-                        onClick={() => alert()}
+                        onClick={() => setVibe(vibeItem)}
                         className={classNames(
                           active
                             ? "bg-gray-200 text-gray-900"

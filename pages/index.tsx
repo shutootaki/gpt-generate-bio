@@ -10,10 +10,28 @@ import { GenerateButton } from "@/components/GenerateButton";
 import { Toaster, toast } from "react-hot-toast";
 import { AnimatePresence } from "framer-motion";
 import { OutputPanel } from "@/components/OutputPanel";
+import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [bio, setBio] = useState("");
+  const [vibe, setVibe] = useState("");
+  const [generatedBio, setGeneratedBio] = useState("");
+
+  const generateBio = () => {
+    alert("gpt");
+  };
+
+  const prompt =
+    vibe === "Funny"
+      ? `Generate 2 funny twitter bios with no hashtags and clearly labeled "1." and "2.". Make sure there is a joke in there and it's a little ridiculous. Make sure each generated bio is at max 20 words and base it on this context: ${bio}${
+          bio.slice(-1) === "." ? "" : "."
+        }`
+      : `Generate 2 ${vibe} twitter bios with no hashtags and clearly labeled "1." and "2.". Make sure each generated bio is at least 14 words and at max 20 words and base them on this context: ${bio}${
+          bio.slice(-1) === "." ? "" : "."
+        }`;
+
   return (
     <div className="flex mx-auto flex-col items-center justify-center py-2 min-h-screen drop-shadow-lg    ">
       <Head>
@@ -28,14 +46,14 @@ export default function Home() {
           Generate your Bio with{" "}
           <p className="text-purple-600 drop-shadow-sm mt-5">GPT-3</p>
         </h1>
-        <InputPanel />
-        <DropDown />
+        <InputPanel setBio={setBio} />
+        <DropDown setVibe={setVibe} />
         <Toaster
           position="top-center"
           reverseOrder={false}
           toastOptions={{ duration: 2000 }}
         />
-        <GenerateButton toast={"tmp"} />
+        <GenerateButton generateBio={generateBio} />
         <OutputPanel>
           <AnimatePresence>
             <motion.div className="space-y-10 my-10">

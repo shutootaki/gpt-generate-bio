@@ -19,8 +19,8 @@ export const OpenAIStream = async (payload: OpenAIStreamPayload) => {
   let counter = 0;
 
   const res = await fetch("https://api.openai.com/v1/completions", {
-    headers: {},
     method: "POST",
+    headers: {},
     body: JSON.stringify(payload),
   });
 

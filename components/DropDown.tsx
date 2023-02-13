@@ -5,7 +5,9 @@ import { Dispatch, Fragment, SetStateAction } from "react";
 import { FiCheck } from "react-icons/fi";
 
 export type VibeType = "Professional" | "Casual" | "Funny";
+
 type Props = {
+  vibe: string;
   setVibe: Dispatch<SetStateAction<string>>;
 };
 
@@ -15,7 +17,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const DropDown = ({ setVibe }: Props) => {
+export const DropDown = ({ setVibe, vibe }: Props) => {
   return (
     <>
       <div className="max-w-xl w-full ">
@@ -27,7 +29,7 @@ export const DropDown = ({ setVibe }: Props) => {
         <Menu as="div" className="relative block text-left w-full">
           <div>
             <Menu.Button className="inline-flex w-full justify-between items-center rounded-md border border-gray-300 bg-slate-100 px-4 py-2 text-gray-700 shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black">
-              tmp
+              {vibe}
               <IoMdArrowDropdownCircle
                 className="-mr-1 ml-2 h-5 w-5 ui-open:hidden"
                 aria-hidden="true"
@@ -50,14 +52,16 @@ export const DropDown = ({ setVibe }: Props) => {
           >
             <Menu.Items
               className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-md bg-slate-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-              key="tmp"
+              key={vibe}
             >
               <div className="">
                 {vibes.map((vibeItem) => (
                   <Menu.Item key={vibeItem}>
                     {({ active }) => (
                       <button
-                        onClick={() => setVibe(vibeItem)}
+                        onClick={() => {
+                          setVibe(vibeItem);
+                        }}
                         className={classNames(
                           active
                             ? "bg-gray-200 text-gray-900"

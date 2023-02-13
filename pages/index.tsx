@@ -12,16 +12,12 @@ import { AnimatePresence } from "framer-motion";
 import { OutputPanel } from "@/components/OutputPanel";
 import { useState } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [bio, setBio] = useState("");
-  const [vibe, setVibe] = useState("");
+  const [vibe, setVibe] = useState("Professional");
   const [generatedBio, setGeneratedBio] = useState("");
-
-  const generateBio = () => {
-    alert("gpt");
-  };
 
   const prompt =
     vibe === "Funny"
@@ -31,6 +27,31 @@ export default function Home() {
       : `Generate 2 ${vibe} twitter bios with no hashtags and clearly labeled "1." and "2.". Make sure each generated bio is at least 14 words and at max 20 words and base them on this context: ${bio}${
           bio.slice(-1) === "." ? "" : "."
         }`;
+
+  const generateBio = async (event: React.MouseEvent<HTMLInputElement>) => {
+    const response = await fetch("./api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+    });
+    console.log({ data: { response } });
+
+    if (!response.ok) throw new Error(response.statusText);
+
+    const data = response.body;
+    if (!data) return;
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      setGeneratedBio((prev) => prev + chunkValue);
+    }
+  };
 
   return (
     <div className="flex mx-auto flex-col items-center justify-center py-2 min-h-screen drop-shadow-lg    ">
@@ -47,7 +68,7 @@ export default function Home() {
           <p className="text-purple-600 drop-shadow-sm mt-5">GPT-3</p>
         </h1>
         <InputPanel setBio={setBio} />
-        <DropDown setVibe={setVibe} />
+        <DropDown vibe={vibe} setVibe={setVibe} />
         <Toaster
           position="top-center"
           reverseOrder={false}
@@ -57,7 +78,7 @@ export default function Home() {
         <OutputPanel>
           <AnimatePresence>
             <motion.div className="space-y-10 my-10">
-              {"tmp" && (
+              {generatedBio && (
                 <>
                   <div>
                     <h2 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
@@ -68,13 +89,13 @@ export default function Home() {
                     <div
                       className="bg-slate-100	 text-stone-900 rounded-xl shadow-md p-4 hover:bg-gray-400 transition cursor-copy border"
                       onClick={() => {
-                        navigator.clipboard.writeText("tmp");
+                        navigator.clipboard.writeText(generatedBio);
                         toast("Bio copied to clipboard", {
                           icon: "✂️",
                         });
                       }}
                     >
-                      <p>tmp</p>
+                      <p>{generatedBio}</p>
                     </div>
                   </div>
                 </>

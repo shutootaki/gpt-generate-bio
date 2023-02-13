@@ -1,8 +1,4 @@
-import {
-  createParser,
-  ParsedEvent,
-  ReconnectInterval,
-} from "eventsource-parser";
+import { createParser } from "eventsource-parser";
 
 export interface OpenAIStreamPayload {
   model: string;
@@ -59,5 +55,5 @@ export const OpenAIStream = async (payload: OpenAIStreamPayload) => {
       }
     },
   });
-  return;
+  return stream;
 };

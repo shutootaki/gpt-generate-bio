@@ -22,7 +22,7 @@ export const DropDown = ({ setVibe, vibe }: Props) => {
     <>
       <div className="max-w-xl w-full ">
         <div className="flex mt-8 mb-3 items-center space-x-3 justify-center">
-          <BsListUl size={32} className="mb-5 sm:mb-0" />
+          <BsListUl size={32} className="mb-5 hidden sm:block sm:mb-0" />
           <p className="mx-2 font-medium">Select your vibe</p>
         </div>
 

@@ -9,8 +9,8 @@ export const InputPanel = ({ setBio }: Props) => {
   return (
     <>
       <div className="max-w-xl w-full">
-        <div className="flex mt-20 items-center space-x-3 justify-center">
-          <BsPencil size={32} className="mb-5 sm:mb-0" />
+        <div className="flex mt-20 items-center space-x-3 flex-col sm:flex-row sm:justify-center">
+          <BsPencil size={32} className="mb-5 hidden sm:block sm:mb-0" />
           <p className="mx-2 font-medium">Copy your Bio</p>
           <span className="text-slate-500">
             (or write a few sentences about yourself)

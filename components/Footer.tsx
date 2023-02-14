@@ -4,7 +4,7 @@ import { BsGithub } from "react-icons/bs";
 export const Footer = () => {
   return (
     <footer className="p-4 text-center h-16 sm:h-20 w-full border-t mt-20 flex-col justify-center items-center">
-      <div className="pb-1">
+      <div className="pb-2">
         Powered by{" "}
         <a
           href="https://openai.com/"
@@ -25,7 +25,7 @@ export const Footer = () => {
           Vercel Edge Functions.
         </a>
       </div>
-      <div className="flex justify-end relative w-full ">
+      <div className="flex relative w-full justify-center sm:justify-end">
         <Link
           href="https://github.com/shutootaki"
           className="group"

@@ -4,11 +4,11 @@ import { GitHubButton } from "./GitHubButton";
 
 export const Header = () => {
   return (
-    <header className="flex justify-between items-center w-full mt-5 border-b pb-7 sm:px-4">
+    <header className="flex justify-between items-center w-full h-20 border-b pl-2 sm:px-4">
       <Link href="/" className="flex space-x-3">
         <GiArtificialIntelligence size={40} />
-        <h1 className="sm:text-4xl text-2xl font-bold ml-2 tracking-tight">
-          GPT Generate BIO
+        <h1 className="text-4xl font-bold tracking-tight text-center sm:text-left">
+          GPT-BIOs
         </h1>
       </Link>
       <GitHubButton />

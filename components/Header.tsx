@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { GiArtificialIntelligence } from "react-icons/gi";
-import { GitHub } from "./GitHub";
+import { GitHubButton } from "./GitHubButton";
 
 export const Header = () => {
   return (
@@ -11,7 +11,7 @@ export const Header = () => {
           GPT Generate BIO
         </h1>
       </Link>
-      <GitHub />
+      <GitHubButton />
     </header>
   );
 };

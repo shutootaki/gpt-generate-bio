@@ -6,11 +6,21 @@ export const Footer = () => {
     <footer className="p-4 text-center h-16 sm:h-20 w-full border-t mt-20 flex-col justify-center items-center">
       <div className="pb-1">
         Powered by{" "}
-        <a href="https://openai.com/" className="hover:underline font-semibold">
+        <a
+          href="https://openai.com/"
+          className="hover:underline font-semibold"
+          target="_blank"
+          rel="noreferrer"
+        >
           Open AI{" "}
         </a>
         and{" "}
-        <a href="https://vercel.com/" className="hover:underline font-semibold">
+        <a
+          href="https://vercel.com/"
+          className="hover:underline font-semibold"
+          target="_blank"
+          rel="noreferrer"
+        >
           {" "}
           Vercel Edge Functions.
         </a>
@@ -20,6 +30,8 @@ export const Footer = () => {
           href="https://github.com/shutootaki"
           className="group"
           aria-label="GitHub"
+          target="_blank"
+          rel="noreferrer"
         >
           <BsGithub
             role="img"
@@ -29,9 +41,11 @@ export const Footer = () => {
           />
         </Link>
         <Link
-          href="https://twitter.com/_takigon"
+          href="https://zenn.dev/takiko"
           className="group"
           aria-label="Zenn"
+          target="_blank"
+          rel="noreferrer"
         >
           <svg
             role="img"
@@ -48,6 +62,8 @@ export const Footer = () => {
           href="https://twitter.com/_takigon"
           className="group"
           aria-label="Twitter"
+          target="_blank"
+          rel="noreferrer"
         >
           <svg
             role="img"

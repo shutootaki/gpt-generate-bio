@@ -1,4 +1,8 @@
-import { createParser } from "eventsource-parser";
+import {
+  createParser,
+  ParsedEvent,
+  ReconnectInterval,
+} from "eventsource-parser";
 
 export interface OpenAIStreamPayload {
   model: string;
@@ -12,22 +16,25 @@ export interface OpenAIStreamPayload {
   n: number;
 }
 
-export const OpenAIStream = async (payload: OpenAIStreamPayload) => {
+export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
   let counter = 0;
 
   const res = await fetch("https://api.openai.com/v1/completions", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+    },
     method: "POST",
-    headers: {},
     body: JSON.stringify(payload),
   });
 
   const stream = new ReadableStream({
     async start(controller) {
-      const onParse = (event: any) => {
-        if ((event.type = "event")) {
+      function onParse(event: ParsedEvent | ReconnectInterval) {
+        if (event.type === "event") {
           const data = event.data;
           if (data === "[DONE]") {
             controller.close();
@@ -36,18 +43,17 @@ export const OpenAIStream = async (payload: OpenAIStreamPayload) => {
           try {
             const json = JSON.parse(data);
             const text = json.choices[0].text;
-
             if (counter < 2 && (text.match(/\n/) || []).length) {
               return;
             }
             const queue = encoder.encode(text);
             controller.enqueue(queue);
             counter++;
-          } catch (error) {
-            controller.error(error);
+          } catch (e) {
+            controller.error(e);
           }
         }
-      };
+      }
 
       const parser = createParser(onParse);
       for await (const chunk of res.body as any) {
@@ -55,5 +61,6 @@ export const OpenAIStream = async (payload: OpenAIStreamPayload) => {
       }
     },
   });
+
   return stream;
-};
+}

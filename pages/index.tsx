@@ -12,12 +12,12 @@ import { AnimatePresence } from "framer-motion";
 import { OutputPanel } from "@/components/OutputPanel";
 import { useState } from "react";
 
-// const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [bio, setBio] = useState("");
   const [vibe, setVibe] = useState("Professional");
-  const [generatedBio, setGeneratedBio] = useState("");
+  const [generatedBios, setGeneratedBios] = useState("");
 
   const prompt =
     vibe === "Funny"
@@ -28,8 +28,10 @@ export default function Home() {
           bio.slice(-1) === "." ? "" : "."
         }`;
 
-  const generateBio = async (event: React.MouseEvent<HTMLInputElement>) => {
-    const response = await fetch("./api/generate", {
+  const generateBio = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setGeneratedBios("");
+    const response = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt }),
@@ -49,7 +51,7 @@ export default function Home() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setGeneratedBio((prev) => prev + chunkValue);
+      setGeneratedBios((prev) => prev + chunkValue);
     }
   };
 
@@ -78,25 +80,31 @@ export default function Home() {
         <OutputPanel>
           <AnimatePresence>
             <motion.div className="space-y-10 my-10">
-              {generatedBio && (
+              {generatedBios && (
                 <>
                   <div>
                     <h2 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
-                      Your Bio
+                      Your Generated Bio
                     </h2>
                   </div>
                   <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                    <div
-                      className="bg-slate-100	 text-stone-900 rounded-xl shadow-md p-4 hover:bg-gray-400 transition cursor-copy border"
-                      onClick={() => {
-                        navigator.clipboard.writeText(generatedBio);
-                        toast("Bio copied to clipboard", {
-                          icon: "✂️",
-                        });
-                      }}
-                    >
-                      <p>{generatedBio}</p>
-                    </div>
+                    {generatedBios
+                      .substring(generatedBios.indexOf("1") + 3)
+                      .split("2.")
+                      .map((bio) => (
+                        <div
+                          className="bg-slate-100	 text-stone-900 rounded-xl shadow-md p-4 hover:bg-gray-400 transition cursor-copy border"
+                          key={bio}
+                          onClick={() => {
+                            navigator.clipboard.writeText(generatedBios);
+                            toast("Bio copied to clipboard", {
+                              icon: "✂️",
+                            });
+                          }}
+                        >
+                          <p>{bio}</p>
+                        </div>
+                      ))}
                   </div>
                 </>
               )}

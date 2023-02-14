@@ -1,17 +1,23 @@
-import { OpenAIStream } from "../utils/OpenAIStream";
+import { OpenAIStream, OpenAIStreamPayload } from "../utils/OpenAIStream";
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
-const handler = async (req: Request): Promise<Response> => {
-  const prompt = (await req.json()) as { prompt?: string };
+export const config = {
+  runtime: "edge",
+};
 
-  if (prompt) {
+const handler = async (req: Request): Promise<Response> => {
+  const { prompt } = (await req.json()) as {
+    prompt?: string;
+  };
+
+  if (!prompt) {
     return new Response("No prompt in the request", { status: 400 });
   }
 
-  const payload = {
+  const payload: OpenAIStreamPayload = {
     model: "text-davinci-003",
     prompt,
     temperature: 0.7,
@@ -26,3 +32,5 @@ const handler = async (req: Request): Promise<Response> => {
   const stream = await OpenAIStream(payload);
   return new Response(stream);
 };
+
+export default handler;

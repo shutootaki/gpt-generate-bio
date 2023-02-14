@@ -94,10 +94,10 @@ export default function Home() {
                     {generatedBios
                       .replace("1. ", "")
                       .split("2.")
-                      .map((bio) => (
+                      .map((bio, i) => (
                         <div
                           className="bg-slate-100	 text-stone-900 rounded-xl shadow-md p-4 hover:bg-gray-400 transition cursor-copy border"
-                          key={bio}
+                          key={i}
                           onClick={() => {
                             navigator.clipboard.writeText(generatedBios);
                             toast("Bio copied to clipboard", {
@@ -105,7 +105,9 @@ export default function Home() {
                             });
                           }}
                         >
-                          <p>{bio}</p>
+                          <p>
+                            {i + 1}. {bio}
+                          </p>
                         </div>
                       ))}
                   </div>

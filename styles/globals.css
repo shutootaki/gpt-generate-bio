@@ -31,7 +31,7 @@ a {
 .loading {
   width: 60px;
   display: inherit;
-  aspect-ratio: 4;
+  aspect-ratio: 6;
   background: radial-gradient(
       circle closest-side at left 6px top 50%,
       currentColor 90%,
@@ -45,7 +45,7 @@ a {
     );
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  animation: d4 1s infinite alternate;
+  animation: d4 0.8s infinite alternate;
 }
 @keyframes d4 {
   to {

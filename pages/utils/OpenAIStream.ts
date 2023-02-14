@@ -16,7 +16,7 @@ export interface OpenAIStreamPayload {
   n: number;
 }
 
-export async function OpenAIStream(payload: OpenAIStreamPayload) {
+const OpenAIStream = async (payload: OpenAIStreamPayload) => {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
@@ -63,4 +63,6 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   });
 
   return stream;
-}
+};
+
+export default OpenAIStream;

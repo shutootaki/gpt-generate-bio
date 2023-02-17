@@ -22,12 +22,12 @@ export default function Home() {
 
   const prompt =
     vibe === "Funny"
-      ? `Generate 2 funny twitter bios with no hashtags and clearly labeled "1." and "2.". Make sure there is a joke in there and it's a little ridiculous. Make sure each generated bio is at max 20 words and base it on this context: ${bio}${
-          bio.slice(-1) === "." ? "" : "."
-        }`
-      : `Generate 2 ${vibe} twitter bios with no hashtags and clearly labeled "1." and "2.". Make sure each generated bio is at least 14 words and at max 20 words and base them on this context: ${bio}${
-          bio.slice(-1) === "." ? "" : "."
-        }`;
+      ? `下記の"入力欄"以降の内容を基に、40字~80字以内の誰もが笑ってしまう面白い自己紹介文を2つ考えて下さい。また、作成において以下の点を必ず守って下さい。
+      ・2つの自己消化文の先頭に"1.","2."と付ける。
+      入力欄[${bio}${bio.slice(-1) === "。" ? "" : "。"}]`
+      : `下記の"input"以降の内容を基に、${vibe}な40文字以内の自己紹介文を2つ考えて下さい。また、作成において以下の点を必ず守って下さい。
+      ・2つの自己消化文の先頭に"1.","2."と付ける。
+      入力欄[${bio}${bio.slice(-1) === "。" ? "" : "。"}]`;
 
   const generateBio = async (e: React.MouseEvent) => {
     e.preventDefault();

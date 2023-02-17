@@ -10,10 +10,10 @@ export const InputPanel = ({ setBio }: Props) => {
     <>
       <div className="max-w-xl w-full">
         <div className="flex mt-20 items-center space-x-3 flex-col sm:flex-row sm:justify-center">
-          <BsPencil size={32} className="mb-5 hidden sm:block sm:mb-0" />
-          <p className="mx-2 font-medium">Copy your Bio</p>
+          <BsPencil size={24} className="mb-5 hidden sm:block sm:mb-0" />
+          <p className="mx-1 font-medium">あなたについて教えて下さい</p>
           <span className="text-slate-300">
-            (or write a few sentences about yourself)
+            (趣味・特技・誰にも言えない秘密など...🦻)
           </span>
         </div>
         <textarea
@@ -22,7 +22,7 @@ export const InputPanel = ({ setBio }: Props) => {
           className="w-full rounded-md bg-stone-800 border-gray-300 shadow-sm focus:border-black focus:ring-black my-3 p-2"
           rows={4}
           placeholder={
-            "e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com."
+            "ex) 私は駆け出しエンジニアです。ReactとTypeScriptが得意です。現在はSolidityとPythonに興味があります。"
           }
           onChange={(e) => setBio(e.target.value)}
         ></textarea>

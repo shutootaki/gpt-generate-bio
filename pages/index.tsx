@@ -38,7 +38,6 @@ export default function Home() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt }),
     });
-    console.log({ data: { response } });
 
     if (!response.ok) throw new Error(response.statusText);
 
